@@ -2,7 +2,15 @@ package com.praveenpayasi.headlinehub.di.module
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.praveenpayasi.headlinehub.data.repository.TopHeadlineRepository
 import com.praveenpayasi.headlinehub.di.ActivityContext
+import com.praveenpayasi.headlinehub.ui.base.ViewModelProviderFactory
+import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineAdapter
+import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineViewModel
+import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
+import com.praveenpayasi.headlinehub.ui.utils.NetworkHelper
+import com.praveenpayasi.headlinehub.ui.utils.logger.Logger
 import dagger.Module
 import dagger.Provides
 
@@ -14,4 +22,21 @@ class ActivityModule(private val activity: AppCompatActivity) {
     fun provideContext(): Context {
         return activity
     }
+
+    @Provides
+    fun provideTopHeadLinesViewModel(
+        topHeadlineRepository: TopHeadlineRepository,
+        networkHelper: NetworkHelper,
+        dispatcherProvider: DispatcherProvider,
+        logger: Logger
+    ): TopHeadlineViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(TopHeadlineViewModel::class) {
+            TopHeadlineViewModel(
+                topHeadlineRepository,dispatcherProvider, networkHelper, logger
+            )
+        })[TopHeadlineViewModel::class.java]
+    }
+
+    @Provides
+    fun provideTopHeadlineAdapter() = TopHeadlineAdapter(ArrayList())
 }
