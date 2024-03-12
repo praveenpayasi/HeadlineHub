@@ -3,6 +3,7 @@ package com.praveenpayasi.headlinehub.data.repository
 import com.praveenpayasi.headlinehub.data.api.NetworkService
 import com.praveenpayasi.headlinehub.data.local.DatabaseService
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
+import com.praveenpayasi.headlinehub.data.model.topheadlines.toArticleLanguage
 import com.praveenpayasi.headlinehub.data.model.topheadlines.toTopHeadlineEntity
 import com.praveenpayasi.headlinehub.di.ActivityScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -52,6 +53,25 @@ class NewsRepository @Inject constructor(
 
     fun getNewsByCountryByDB(countryId: String): Flow<List<TopHeadlineEntity>> {
         return databaseService.getAllTopHeadlinesArticles(countryId)
+    }
+
+    fun getNewsByLanguage(languageId: String): Flow<List<TopHeadlineEntity>> {
+        return flow { emit(networkService.getNewsByLanguage(languageId)) }
+            .map {
+                it.apiTopHeadlines.map { apiArticle -> apiArticle.toArticleLanguage(languageId) }
+            }.flatMapConcat { articles ->
+                flow {
+                    emit(
+                        databaseService.deleteAllAndInsertAllLanguageArticles(articles, languageId)
+                    )
+                }
+            }.flatMapConcat {
+                databaseService.getLanguageNews(languageId)
+            }
+    }
+
+    fun getNewsByLanguageByDB(languageId: String): Flow<List<TopHeadlineEntity>> {
+        return databaseService.getLanguageNews(languageId)
     }
 
 }

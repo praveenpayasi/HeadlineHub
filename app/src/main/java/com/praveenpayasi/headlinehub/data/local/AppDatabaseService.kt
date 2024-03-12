@@ -33,5 +33,15 @@ class AppDatabaseService constructor(private val appDatabase: NewsAppDatabase) :
         appDatabase.topHeadlinesDao().deleteAllAndInsertAllSourceArticles(articles, sourceID)
     }
 
+    override fun getLanguageNews(languageID: String): Flow<List<TopHeadlineEntity>> {
+        return appDatabase.topHeadlinesDao().getLanguageArticles(languageID)
+    }
+
+    override fun deleteAllAndInsertAllLanguageArticles(
+        articles: List<TopHeadlineEntity>,
+        languageID: String
+    ) {
+        appDatabase.topHeadlinesDao().deleteAllAndInsertAllLanguageArticles(articles, languageID)
+    }
 
 }

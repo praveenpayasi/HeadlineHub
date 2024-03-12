@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.praveenpayasi.headlinehub.data.repository.CountryListRepository
+import com.praveenpayasi.headlinehub.data.repository.LanguageListRepository
 import com.praveenpayasi.headlinehub.data.repository.NewsRepository
 import com.praveenpayasi.headlinehub.data.repository.NewsSourceRepository
 import com.praveenpayasi.headlinehub.data.repository.TopHeadlinePaginationRepository
@@ -12,6 +13,8 @@ import com.praveenpayasi.headlinehub.di.ActivityContext
 import com.praveenpayasi.headlinehub.ui.base.ViewModelProviderFactory
 import com.praveenpayasi.headlinehub.ui.country.CountryListAdapter
 import com.praveenpayasi.headlinehub.ui.country.CountryListViewModel
+import com.praveenpayasi.headlinehub.ui.language.LanguageListAdapter
+import com.praveenpayasi.headlinehub.ui.language.LanguageListViewModel
 import com.praveenpayasi.headlinehub.ui.news.NewsListAdapter
 import com.praveenpayasi.headlinehub.ui.news.NewsListViewModel
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationAdapter
@@ -97,6 +100,16 @@ class ActivityModule(private val activity: AppCompatActivity) {
     }
 
     @Provides
+    fun provideLanguageListViewModel(
+        languageListRepository: LanguageListRepository,
+        dispatcherProvider: DispatcherProvider
+    ): LanguageListViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(LanguageListViewModel::class) {
+            LanguageListViewModel(languageListRepository, dispatcherProvider)
+        })[LanguageListViewModel::class.java]
+    }
+
+    @Provides
     fun provideTopHeadlineAdapter() = TopHeadlineAdapter(ArrayList())
 
     @Provides
@@ -111,5 +124,8 @@ class ActivityModule(private val activity: AppCompatActivity) {
 
     @Provides
     fun provideCountryListAdapter() = CountryListAdapter(ArrayList())
+
+    @Provides
+    fun provideLanguageListAdapter() = LanguageListAdapter(ArrayList())
 
 }

@@ -19,3 +19,14 @@ fun ApiTopHeadlines.toTopHeadlineEntity(country: String) = TopHeadlineEntity(
     country = country,
     source = apiSource.toSourceEntity()
 )
+
+fun ApiTopHeadlines.toArticleLanguage(language: String): TopHeadlineEntity {
+    return TopHeadlineEntity(
+        title = title,
+        description = description ?: "",
+        url = url,
+        imageUrl = imageUrl ?: "",
+        language = language,
+        source = apiSource.toSourceEntity()
+    )
+}

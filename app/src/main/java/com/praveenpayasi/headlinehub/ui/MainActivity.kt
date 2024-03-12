@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.praveenpayasi.headlinehub.databinding.ActivityMainBinding
 import com.praveenpayasi.headlinehub.ui.country.CountryListActivity
+import com.praveenpayasi.headlinehub.ui.language.LanguageListActivity
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesActivity
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(CountryListActivity.getStartIntent(this@MainActivity)))
         }
 
+        binding.btnLanguages.setOnClickListener {
+            startActivity(Intent(LanguageListActivity.getStartIntent(this@MainActivity)))
+        }
 
     }
 

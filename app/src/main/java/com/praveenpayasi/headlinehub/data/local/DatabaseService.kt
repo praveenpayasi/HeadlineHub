@@ -18,4 +18,8 @@ interface DatabaseService {
 
     fun deleteAllAndInsertAllSourceNews(articles: List<TopHeadlineEntity>, sourceID: String)
 
+    fun getLanguageNews(languageID: String): Flow<List<TopHeadlineEntity>>
+
+    fun deleteAllAndInsertAllLanguageArticles(articles: List<TopHeadlineEntity>, languageID: String)
+
 }
