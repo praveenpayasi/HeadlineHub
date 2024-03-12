@@ -1,5 +1,6 @@
 package com.praveenpayasi.headlinehub.data.local
 
+import com.praveenpayasi.headlinehub.data.local.entity.NewsSources
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,5 +16,22 @@ class AppDatabaseService constructor(private val appDatabase: NewsAppDatabase) :
     ) {
         appDatabase.topHeadlinesDao().deleteAndInsertAllTopHeadlinesArticles(topHeadlineEntities, countryID)
     }
+
+    override fun getNewsSources(): Flow<List<NewsSources>> {
+        return appDatabase.newsSourceDao().getSourcesNews()
+    }
+
+    override fun deleteAndInsertAllNewsSources(articles: List<NewsSources>) {
+        appDatabase.newsSourceDao().deleteAndInsertAllSourceNews(articles)
+    }
+
+    override fun getSourceNewsByDB(sourceID: String): Flow<List<TopHeadlineEntity>> {
+        return appDatabase.topHeadlinesDao().getSourceArticle(sourceID)
+    }
+
+    override fun deleteAllAndInsertAllSourceNews(articles: List<TopHeadlineEntity>, sourceID: String) {
+        appDatabase.topHeadlinesDao().deleteAllAndInsertAllSourceArticles(articles, sourceID)
+    }
+
 
 }

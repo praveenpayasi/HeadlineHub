@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.praveenpayasi.headlinehub.databinding.ActivityMainBinding
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
+import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesActivity
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineActivity
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnPaginationTopHeadlines.setOnClickListener {
             startActivity(Intent(TopHeadlinePaginationActivity.getStartIntent(this@MainActivity)))
+        }
+
+        binding.btnNewsSources.setOnClickListener {
+            startActivity(Intent(NewsSourcesActivity.getStartIntent(this@MainActivity)))
         }
 
     }

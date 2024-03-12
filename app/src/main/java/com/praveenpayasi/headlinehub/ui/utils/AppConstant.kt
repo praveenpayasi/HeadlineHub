@@ -8,5 +8,6 @@ object AppConstant {
     const val DATABASE_NAME = "news-database"
     const val INITIAL_PAGE = 1
     const val PAGE_SIZE = 10
+    const val NEWS_BY_SOURCES = "sources"
 
 }

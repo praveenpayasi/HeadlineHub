@@ -41,6 +41,13 @@
                 android:value="" />
         </activity>
 
+        <activity
+            android:name=".ui.sources.NewsSourcesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.news.NewsListActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
