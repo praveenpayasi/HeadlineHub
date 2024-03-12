@@ -35,5 +35,23 @@ class NewsRepository @Inject constructor(
         return databaseService.getSourceNewsByDB(sourceId)
     }
 
+    fun getNewsByCountry(countryId: String): Flow<List<TopHeadlineEntity>> {
+        return flow { emit(networkService.getNewsByCountry(countryId)) }
+            .map {
+                it.apiTopHeadlines.map { apiArticle -> apiArticle.toTopHeadlineEntity(countryId) }
+            }.flatMapConcat { articles ->
+                flow {
+                    emit(
+                        databaseService.deleteAndInsertAllTopHeadlinesArticles(articles, countryId)
+                    )
+                }
+            }.flatMapConcat {
+                databaseService.getAllTopHeadlinesArticles(countryId)
+            }
+    }
+
+    fun getNewsByCountryByDB(countryId: String): Flow<List<TopHeadlineEntity>> {
+        return databaseService.getAllTopHeadlinesArticles(countryId)
+    }
 
 }

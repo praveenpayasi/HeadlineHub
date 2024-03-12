@@ -4,6 +4,7 @@ import com.praveenpayasi.headlinehub.data.repository.NewsRepository
 import com.praveenpayasi.headlinehub.data.repository.NewsSourceRepository
 import com.praveenpayasi.headlinehub.di.ActivityScope
 import com.praveenpayasi.headlinehub.di.module.ActivityModule
+import com.praveenpayasi.headlinehub.ui.country.CountryListActivity
 import com.praveenpayasi.headlinehub.ui.news.NewsListActivity
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
@@ -25,6 +26,7 @@ interface ActivityComponent {
 
     fun inject(activity: NewsSourcesActivity)
 
+    fun inject(activity: CountryListActivity)
 
     fun getNewsSourceRepository(): NewsSourceRepository
 

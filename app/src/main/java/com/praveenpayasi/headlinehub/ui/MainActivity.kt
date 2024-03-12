@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.praveenpayasi.headlinehub.databinding.ActivityMainBinding
+import com.praveenpayasi.headlinehub.ui.country.CountryListActivity
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesActivity
@@ -33,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnNewsSources.setOnClickListener {
             startActivity(Intent(NewsSourcesActivity.getStartIntent(this@MainActivity)))
         }
+
+        binding.btnCoutriess.setOnClickListener {
+            startActivity(Intent(CountryListActivity.getStartIntent(this@MainActivity)))
+        }
+
 
     }
 
