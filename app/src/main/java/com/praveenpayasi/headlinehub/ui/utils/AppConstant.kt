@@ -6,5 +6,7 @@ object AppConstant {
     const val COUNTRY = "us"
     const val BASE_URL = "https://newsapi.org/v2/"
     const val DATABASE_NAME = "news-database"
+    const val INITIAL_PAGE = 1
+    const val PAGE_SIZE = 10
 
 }

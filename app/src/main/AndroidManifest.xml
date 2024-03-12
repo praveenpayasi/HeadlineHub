@@ -33,6 +33,14 @@
             android:name=".ui.offline.OfflineTopHeadlineActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.pagination.TopHeadlinePaginationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
     </application>
 
 </manifest>

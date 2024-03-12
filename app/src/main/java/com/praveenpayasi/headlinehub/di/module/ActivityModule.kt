@@ -3,9 +3,12 @@ package com.praveenpayasi.headlinehub.di.module
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.praveenpayasi.headlinehub.data.repository.TopHeadlinePaginationRepository
 import com.praveenpayasi.headlinehub.data.repository.TopHeadlineRepository
 import com.praveenpayasi.headlinehub.di.ActivityContext
 import com.praveenpayasi.headlinehub.ui.base.ViewModelProviderFactory
+import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationAdapter
+import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationViewModel
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineAdapter
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineViewModel
 import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
@@ -38,5 +41,22 @@ class ActivityModule(private val activity: AppCompatActivity) {
     }
 
     @Provides
+    fun provideTopHeadLinesPaginationViewModel(
+        paginationTopHeadlineRepository: TopHeadlinePaginationRepository,
+        dispatcherProvider: DispatcherProvider
+    ): TopHeadlinePaginationViewModel {
+        return ViewModelProvider(activity,
+            ViewModelProviderFactory(TopHeadlinePaginationViewModel::class) {
+                TopHeadlinePaginationViewModel(
+                    paginationTopHeadlineRepository, dispatcherProvider
+                )
+            })[TopHeadlinePaginationViewModel::class.java]
+    }
+
+    @Provides
     fun provideTopHeadlineAdapter() = TopHeadlineAdapter(ArrayList())
+
+    @Provides
+    fun provideTopHeadlinePaginationAdapter() = TopHeadlinePaginationAdapter()
+
 }
