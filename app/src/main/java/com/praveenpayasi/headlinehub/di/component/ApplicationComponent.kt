@@ -3,6 +3,8 @@ package com.praveenpayasi.headlinehub.di.component
 import android.content.Context
 import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.api.NetworkService
+import com.praveenpayasi.headlinehub.data.local.DatabaseService
+import com.praveenpayasi.headlinehub.data.local.NewsAppDatabase
 import com.praveenpayasi.headlinehub.di.ApplicationContext
 import com.praveenpayasi.headlinehub.di.module.ApplicationModule
 import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
@@ -27,5 +29,9 @@ interface ApplicationComponent {
     fun getDispatcherProvider(): DispatcherProvider
 
     fun getLoggerProvider(): Logger
+
+    fun getDatabaseService(): DatabaseService
+
+    fun getNewsAppDatabase(): NewsAppDatabase
 
 }

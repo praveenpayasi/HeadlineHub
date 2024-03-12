@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.praveenpayasi.headlinehub.databinding.ActivityMainBinding
+import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineActivity
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnTopHeadlines.setOnClickListener{
             startActivity(Intent(TopHeadlineActivity.getStartIntent(this@MainActivity)))
+        }
+
+        binding.btnOfflineTopHeadlines.setOnClickListener {
+            startActivity(Intent(OfflineTopHeadlineActivity.getStartIntent(this@MainActivity)))
         }
 
     }

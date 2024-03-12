@@ -2,11 +2,16 @@ package com.praveenpayasi.headlinehub.di.module
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.api.ApiKeyInterceptor
 import com.praveenpayasi.headlinehub.data.api.NetworkService
+import com.praveenpayasi.headlinehub.data.local.AppDatabaseService
+import com.praveenpayasi.headlinehub.data.local.DatabaseService
+import com.praveenpayasi.headlinehub.data.local.NewsAppDatabase
 import com.praveenpayasi.headlinehub.di.ApplicationContext
 import com.praveenpayasi.headlinehub.di.BaseUrl
+import com.praveenpayasi.headlinehub.di.DatabaseName
 import com.praveenpayasi.headlinehub.di.NetworkAPIKey
 import com.praveenpayasi.headlinehub.ui.utils.AppConstant
 import com.praveenpayasi.headlinehub.ui.utils.DefaultDispatcherProvider
@@ -90,5 +95,27 @@ class ApplicationModule(private val application: HeadlineHubApplication) {
     @Provides
     fun provideApiKey(): String = AppConstant.API_KEY
 
+    @Provides
+    @Singleton
+    fun provideDatabaseService(appDatabase: NewsAppDatabase): DatabaseService {
+        return AppDatabaseService(appDatabase)
+    }
+
+    @DatabaseName
+    @Provides
+    fun provideDatabaseName(): String = AppConstant.DATABASE_NAME
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+        @DatabaseName databaseName: String
+    ): NewsAppDatabase {
+        return Room.databaseBuilder(
+            context,
+            NewsAppDatabase::class.java,
+            databaseName
+        ).build()
+    }
 
 }

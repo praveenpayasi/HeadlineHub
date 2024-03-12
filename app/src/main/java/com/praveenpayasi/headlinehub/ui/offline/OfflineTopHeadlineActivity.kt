@@ -1,39 +1,39 @@
-package com.praveenpayasi.headlinehub.ui.topheadline
+package com.praveenpayasi.headlinehub.ui.offline
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
-import com.praveenpayasi.headlinehub.databinding.ActivityTopHeadlineBinding
+import com.praveenpayasi.headlinehub.databinding.ActivityTopHeadlineOfflineBinding
 import com.praveenpayasi.headlinehub.di.component.DaggerActivityComponent
 import com.praveenpayasi.headlinehub.di.module.ActivityModule
 import com.praveenpayasi.headlinehub.ui.base.UiState
+import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TopHeadlineActivity : AppCompatActivity() {
+class OfflineTopHeadlineActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var topHeadlineViewModel: TopHeadlineViewModel
+    lateinit var offlineTopHeadlineViewModel: OfflineTopHeadlineViewModel
 
     @Inject
     lateinit var topHeadlineAdapter: TopHeadlineAdapter
 
-    private lateinit var binding: ActivityTopHeadlineBinding
-
+    private lateinit var binding: ActivityTopHeadlineOfflineBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
         super.onCreate(savedInstanceState)
-        binding = ActivityTopHeadlineBinding.inflate(layoutInflater)
+        binding = ActivityTopHeadlineOfflineBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUI()
         setupObserver()
@@ -46,21 +46,20 @@ class TopHeadlineActivity : AppCompatActivity() {
         }
 
         binding.includeLayout.tryAgainBtn.setOnClickListener {
-            topHeadlineViewModel.startFetchingTopHeadlines()
+            offlineTopHeadlineViewModel.startFetchingTopHeadlines()
         }
     }
 
     private fun setupObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                topHeadlineViewModel.topHeadlineUiState.collect {
+                offlineTopHeadlineViewModel.topHeadlineUiState.collect {
                     when (it) {
                         is UiState.Success -> {
                             binding.progressBar.visibility = View.GONE
                             renderList(it.data)
                             binding.recyclerView.visibility = View.VISIBLE
                             binding.includeLayout.errorLayout.visibility = View.GONE
-
                         }
 
                         is UiState.Loading -> {
@@ -74,10 +73,8 @@ class TopHeadlineActivity : AppCompatActivity() {
                         is UiState.Error -> {
                             binding.progressBar.visibility = View.GONE
                             binding.includeLayout.errorLayout.visibility = View.VISIBLE
-                            Toast.makeText(this@TopHeadlineActivity, it.message, Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(this@OfflineTopHeadlineActivity, it.message, Toast.LENGTH_LONG).show()
                         }
-
                     }
                 }
             }
@@ -97,7 +94,8 @@ class TopHeadlineActivity : AppCompatActivity() {
 
     companion object {
         fun getStartIntent(context: Context): Intent {
-            return Intent(context, TopHeadlineActivity::class.java)
+            return Intent(context, OfflineTopHeadlineActivity::class.java)
         }
     }
+
 }

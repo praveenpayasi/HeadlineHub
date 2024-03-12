@@ -12,6 +12,10 @@ annotation class ActivityContext
 
 @Qualifier
 @Retention(AnnotationRetention.SOURCE)
+annotation class DatabaseName
+
+@Qualifier
+@Retention(AnnotationRetention.SOURCE)
 annotation class NetworkAPIKey
 
 @Qualifier

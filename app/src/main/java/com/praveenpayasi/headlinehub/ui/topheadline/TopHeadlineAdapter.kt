@@ -6,26 +6,26 @@ import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.praveenpayasi.headlinehub.data.model.topheadlines.Article
+import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import com.praveenpayasi.headlinehub.databinding.ItemTopHeadlineBinding
 
-class TopHeadlineAdapter (private val articleList: ArrayList<Article>
+class TopHeadlineAdapter (private val topHeadlineEntityList: ArrayList<TopHeadlineEntity>
 ): RecyclerView.Adapter<TopHeadlineAdapter.HeadlineViewHolder>() {
 
     class HeadlineViewHolder(private val binding: ItemTopHeadlineBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: Article){
-            binding.txtTitle.text=article.title
-            binding.txtDescription.text=article.description
-            binding.txtSource.text=article.source.name
+        fun bind(topHeadlineEntity: TopHeadlineEntity){
+            binding.txtTitle.text=topHeadlineEntity.title
+            binding.txtDescription.text=topHeadlineEntity.description
+            binding.txtSource.text=topHeadlineEntity.source.name
             Glide.with(binding.imgBanner.context)
-                .load(article.imageUrl)
+                .load(topHeadlineEntity.imageUrl)
                 .into(binding.imgBanner)
             itemView.setOnClickListener {
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()
-                customTabsIntent.launchUrl(it.context, Uri.parse(article.url))
+                customTabsIntent.launchUrl(it.context, Uri.parse(topHeadlineEntity.url))
             }
         }
     }
@@ -38,14 +38,14 @@ class TopHeadlineAdapter (private val articleList: ArrayList<Article>
         ))
     }
 
-    override fun getItemCount(): Int = articleList.size
+    override fun getItemCount(): Int = topHeadlineEntityList.size
 
     override fun onBindViewHolder(holder: HeadlineViewHolder, position: Int) =
-        holder.bind(articleList[position])
+        holder.bind(topHeadlineEntityList[position])
 
 
-    fun addArticles(list: List<Article>) {
-        articleList.addAll(list)
+    fun addArticles(list: List<TopHeadlineEntity>) {
+        topHeadlineEntityList.addAll(list)
     }
 
 }

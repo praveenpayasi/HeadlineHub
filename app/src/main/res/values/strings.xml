@@ -9,7 +9,7 @@
     <string name="search">Search</string>
     <string name="search_news">Search News</string>
     <string name="error_title">Ooops,</string>
-    <string name="error_description">Something went wrong, Lets try\n come more again</string>
+    <string name="error_description">Something went wrong, Lets try\n one more again</string>
     <string name="try_again">TRY AGAIN</string>
     <string name="loading">Loading</string>
     <string name="proceed">Proceed</string>
