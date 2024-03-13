@@ -4,13 +4,13 @@ import com.praveenpayasi.headlinehub.data.api.NetworkService
 import com.praveenpayasi.headlinehub.data.local.DatabaseService
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import com.praveenpayasi.headlinehub.data.model.topheadlines.ApiTopHeadlines
-import com.praveenpayasi.headlinehub.di.ActivityScope
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-@ActivityScope
+@ViewModelScoped
 class OfflineTopHeadlineRepository @Inject constructor(
     private val networkService: NetworkService,
     private val databaseService: DatabaseService

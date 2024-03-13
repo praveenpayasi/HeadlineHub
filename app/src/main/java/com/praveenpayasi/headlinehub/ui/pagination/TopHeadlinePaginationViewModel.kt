@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import com.praveenpayasi.headlinehub.data.model.topheadlines.ApiTopHeadlines
 import com.praveenpayasi.headlinehub.data.repository.TopHeadlinePaginationRepository
 import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class TopHeadlinePaginationViewModel @Inject constructor(
     private val paginationTopHeadlineRepository: TopHeadlinePaginationRepository,
     private val dispatcherProvider: DispatcherProvider

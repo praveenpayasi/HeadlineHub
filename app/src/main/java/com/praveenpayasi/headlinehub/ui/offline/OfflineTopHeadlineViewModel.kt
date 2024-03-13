@@ -10,6 +10,7 @@ import com.praveenpayasi.headlinehub.ui.utils.AppConstant
 import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
 import com.praveenpayasi.headlinehub.ui.utils.NetworkHelper
 import com.praveenpayasi.headlinehub.ui.utils.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class OfflineTopHeadlineViewModel @Inject constructor(
     private val topHeadlineRepository: OfflineTopHeadlineRepository,
     private val dispatcherProvider: DispatcherProvider,

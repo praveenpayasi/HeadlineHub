@@ -7,22 +7,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import com.praveenpayasi.headlinehub.databinding.ActivityNewsListBinding
-import com.praveenpayasi.headlinehub.di.component.DaggerActivityComponent
-import com.praveenpayasi.headlinehub.di.module.ActivityModule
 import com.praveenpayasi.headlinehub.ui.base.UiState
 import com.praveenpayasi.headlinehub.ui.utils.AppConstant
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsListActivity : AppCompatActivity() {
 
-    @Inject
     lateinit var newsListViewModel: NewsListViewModel
 
     @Inject
@@ -31,12 +30,16 @@ class NewsListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewsListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityNewsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViewModel()
         setupUI()
         setupObserver()
+    }
+
+    private fun setupViewModel(){
+        newsListViewModel = ViewModelProvider(this)[NewsListViewModel::class.java]
     }
 
     private fun setupUI() {
@@ -118,12 +121,6 @@ class NewsListActivity : AppCompatActivity() {
     private fun renderList(articleList: List<TopHeadlineEntity>) {
         newsListAdapter.addArticles(articleList)
         newsListAdapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as HeadlineHubApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
     }
 
     companion object {

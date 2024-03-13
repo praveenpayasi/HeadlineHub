@@ -9,6 +9,7 @@ import com.praveenpayasi.headlinehub.ui.utils.AppConstant.DEBOUNCE_TIMEOUT
 import com.praveenpayasi.headlinehub.ui.utils.AppConstant.MIN_SEARCH_CHAR
 import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
 import com.praveenpayasi.headlinehub.ui.utils.NetworkHelper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
     private val dispatcherProvider: DispatcherProvider,

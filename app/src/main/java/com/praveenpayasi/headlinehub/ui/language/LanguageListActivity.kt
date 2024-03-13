@@ -2,28 +2,27 @@ package com.praveenpayasi.headlinehub.ui.language
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.model.Language
 import com.praveenpayasi.headlinehub.databinding.ActivityLanguageListBinding
-import com.praveenpayasi.headlinehub.di.component.DaggerActivityComponent
-import com.praveenpayasi.headlinehub.di.module.ActivityModule
 import com.praveenpayasi.headlinehub.ui.base.UiState
 import com.praveenpayasi.headlinehub.ui.news.NewsListActivity
 import com.praveenpayasi.headlinehub.ui.utils.AppConstant
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LanguageListActivity : AppCompatActivity() {
 
-    @Inject
     lateinit var languageListViewModel: LanguageListViewModel
 
     @Inject
@@ -33,12 +32,16 @@ class LanguageListActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityLanguageListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViewModel()
         setupUI()
         setupObserver()
+    }
+
+    private fun setupViewModel(){
+        languageListViewModel = ViewModelProvider(this)[LanguageListViewModel::class.java]
     }
 
     private fun setupUI() {
@@ -122,13 +125,6 @@ class LanguageListActivity : AppCompatActivity() {
     private fun renderList(languageList: List<Language>) {
         languageListAdapter.addLanguage(languageList)
         languageListAdapter.notifyDataSetChanged()
-    }
-
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as HeadlineHubApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
     }
 
     companion object {

@@ -2,13 +2,13 @@ package com.praveenpayasi.headlinehub.data.repository
 
 import com.praveenpayasi.headlinehub.data.api.NetworkService
 import com.praveenpayasi.headlinehub.data.model.topheadlines.ApiTopHeadlines
-import com.praveenpayasi.headlinehub.di.ActivityScope
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-@ActivityScope
+@ViewModelScoped
 class TopHeadlineRepository @Inject constructor(private val networkService: NetworkService) {
 
     fun getTopHeadlines(countryID: String): Flow<List<ApiTopHeadlines>> {

@@ -8,20 +8,19 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.model.topheadlines.ApiTopHeadlines
 import com.praveenpayasi.headlinehub.databinding.ActivityTopHeadlinePaginationBinding
-import com.praveenpayasi.headlinehub.di.component.DaggerActivityComponent
-import com.praveenpayasi.headlinehub.di.module.ActivityModule
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TopHeadlinePaginationActivity : AppCompatActivity() {
 
-    @Inject
     lateinit var paginationTopHeadlineViewModel: TopHeadlinePaginationViewModel
 
     @Inject
@@ -30,12 +29,16 @@ class TopHeadlinePaginationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTopHeadlinePaginationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityTopHeadlinePaginationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViewModel()
         setupUI()
         setupObserver()
+    }
+
+    private fun setupViewModel(){
+      paginationTopHeadlineViewModel = ViewModelProvider(this)[TopHeadlinePaginationViewModel::class.java]
     }
 
     private fun setupUI() {
@@ -63,12 +66,6 @@ class TopHeadlinePaginationActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as HeadlineHubApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build(). inject(this)
     }
 
     companion object {

@@ -5,7 +5,7 @@ import com.praveenpayasi.headlinehub.data.local.DatabaseService
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import com.praveenpayasi.headlinehub.data.model.topheadlines.toArticleLanguage
 import com.praveenpayasi.headlinehub.data.model.topheadlines.toTopHeadlineEntity
-import com.praveenpayasi.headlinehub.di.ActivityScope
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
-@ActivityScope
+@ViewModelScoped
 @OptIn(ExperimentalCoroutinesApi::class)
 class NewsRepository @Inject constructor(
     private val networkService: NetworkService,

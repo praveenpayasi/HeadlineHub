@@ -7,22 +7,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import com.praveenpayasi.headlinehub.databinding.ActivityTopHeadlineOfflineBinding
-import com.praveenpayasi.headlinehub.di.component.DaggerActivityComponent
-import com.praveenpayasi.headlinehub.di.module.ActivityModule
 import com.praveenpayasi.headlinehub.ui.base.UiState
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class OfflineTopHeadlineActivity : AppCompatActivity() {
 
-    @Inject
     lateinit var offlineTopHeadlineViewModel: OfflineTopHeadlineViewModel
 
     @Inject
@@ -31,12 +30,16 @@ class OfflineTopHeadlineActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTopHeadlineOfflineBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityTopHeadlineOfflineBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setViewModel()
         setupUI()
         setupObserver()
+    }
+
+    private fun setViewModel(){
+        offlineTopHeadlineViewModel = ViewModelProvider(this)[OfflineTopHeadlineViewModel::class.java]
     }
 
     private fun setupUI() {
@@ -84,12 +87,6 @@ class OfflineTopHeadlineActivity : AppCompatActivity() {
     private fun renderList(topHeadlineEntityList: List<TopHeadlineEntity>) {
         topHeadlineAdapter.addArticles(topHeadlineEntityList)
         topHeadlineAdapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as HeadlineHubApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
     }
 
     companion object {

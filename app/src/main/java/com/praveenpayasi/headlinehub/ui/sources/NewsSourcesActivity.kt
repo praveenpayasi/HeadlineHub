@@ -2,28 +2,27 @@ package com.praveenpayasi.headlinehub.ui.sources
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.local.entity.NewsSources
 import com.praveenpayasi.headlinehub.databinding.ActivityNewsSourcesBinding
-import com.praveenpayasi.headlinehub.di.component.DaggerActivityComponent
-import com.praveenpayasi.headlinehub.di.module.ActivityModule
 import com.praveenpayasi.headlinehub.ui.base.UiState
 import com.praveenpayasi.headlinehub.ui.news.NewsListActivity
 import com.praveenpayasi.headlinehub.ui.utils.AppConstant
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsSourcesActivity : AppCompatActivity() {
 
-    @Inject
     lateinit var newsSourcesViewModel : NewsSourcesViewModel
 
     @Inject
@@ -32,12 +31,16 @@ class NewsSourcesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewsSourcesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         binding = ActivityNewsSourcesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViewModel()
         setupUI()
         setupObserver()
+    }
+
+    private fun setupViewModel(){
+        newsSourcesViewModel = ViewModelProvider(this)[NewsSourcesViewModel::class.java]
     }
 
     private fun setupUI() {
@@ -94,12 +97,6 @@ class NewsSourcesActivity : AppCompatActivity() {
     private fun renderList(sourceList: List<NewsSources>) {
         newsSourceAdapter.addSources(sourceList)
         newsSourceAdapter.notifyDataSetChanged()
-    }
-
-    private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as HeadlineHubApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
     }
 
     companion object {

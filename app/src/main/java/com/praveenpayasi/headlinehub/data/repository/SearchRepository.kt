@@ -3,13 +3,13 @@ package com.praveenpayasi.headlinehub.data.repository
 import com.praveenpayasi.headlinehub.data.api.NetworkService
 import com.praveenpayasi.headlinehub.data.local.entity.TopHeadlineEntity
 import com.praveenpayasi.headlinehub.data.model.topheadlines.toTopHeadlineEntity
-import com.praveenpayasi.headlinehub.di.ActivityScope
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-@ActivityScope
+@ViewModelScoped
 class SearchRepository @Inject constructor(private val networkService: NetworkService) {
 
     fun getNewsByQueries(query: String): Flow<List<TopHeadlineEntity>> {

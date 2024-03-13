@@ -8,6 +8,7 @@ import com.praveenpayasi.headlinehub.ui.base.UiState
 import com.praveenpayasi.headlinehub.ui.utils.DispatcherProvider
 import com.praveenpayasi.headlinehub.ui.utils.NetworkHelper
 import com.praveenpayasi.headlinehub.ui.utils.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class NewsSourcesViewModel @Inject constructor(
     private val newsSourceRepository: NewsSourceRepository,
     private val logger: Logger,

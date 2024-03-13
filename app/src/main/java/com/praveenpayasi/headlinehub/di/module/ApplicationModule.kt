@@ -1,15 +1,12 @@
 package com.praveenpayasi.headlinehub.di.module
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.praveenpayasi.headlinehub.HeadlineHubApplication
 import com.praveenpayasi.headlinehub.data.api.ApiKeyInterceptor
 import com.praveenpayasi.headlinehub.data.api.NetworkService
 import com.praveenpayasi.headlinehub.data.local.AppDatabaseService
 import com.praveenpayasi.headlinehub.data.local.DatabaseService
 import com.praveenpayasi.headlinehub.data.local.NewsAppDatabase
-import com.praveenpayasi.headlinehub.di.ApplicationContext
 import com.praveenpayasi.headlinehub.di.BaseUrl
 import com.praveenpayasi.headlinehub.di.DatabaseName
 import com.praveenpayasi.headlinehub.di.NetworkAPIKey
@@ -22,23 +19,17 @@ import com.praveenpayasi.headlinehub.ui.utils.logger.AppLogger
 import com.praveenpayasi.headlinehub.ui.utils.logger.Logger
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val application: HeadlineHubApplication) {
-
-    @ApplicationContext
-    @Provides
-    fun provideContext(): Context {
-        return application
-    }
-
-    @Provides
-    @Singleton
-    fun provideApplication(): Application = application
+@InstallIn(SingletonComponent::class)
+class ApplicationModule {
 
     @Provides
     @Singleton
