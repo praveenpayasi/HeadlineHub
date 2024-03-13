@@ -57,6 +57,11 @@
             android:name=".ui.language.LanguageListActivity"
             android:exported="false" />
 
+
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

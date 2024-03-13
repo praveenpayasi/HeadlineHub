@@ -8,6 +8,7 @@ import com.praveenpayasi.headlinehub.ui.country.CountryListActivity
 import com.praveenpayasi.headlinehub.ui.language.LanguageListActivity
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
+import com.praveenpayasi.headlinehub.ui.search.SearchActivity
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesActivity
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineActivity
 
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLanguages.setOnClickListener {
             startActivity(Intent(LanguageListActivity.getStartIntent(this@MainActivity)))
+        }
+
+        binding.btnSearch.setOnClickListener {
+            startActivity(Intent(SearchActivity.getStartIntent(this@MainActivity)))
         }
 
     }

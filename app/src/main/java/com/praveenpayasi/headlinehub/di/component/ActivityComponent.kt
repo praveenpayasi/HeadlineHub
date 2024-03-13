@@ -9,6 +9,7 @@ import com.praveenpayasi.headlinehub.ui.language.LanguageListActivity
 import com.praveenpayasi.headlinehub.ui.news.NewsListActivity
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
+import com.praveenpayasi.headlinehub.ui.search.SearchActivity
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesActivity
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineActivity
 import dagger.Component
@@ -30,6 +31,8 @@ interface ActivityComponent {
     fun inject(activity: CountryListActivity)
 
     fun inject(activity: LanguageListActivity)
+
+    fun inject(activity: SearchActivity)
 
     fun getNewsSourceRepository(): NewsSourceRepository
 

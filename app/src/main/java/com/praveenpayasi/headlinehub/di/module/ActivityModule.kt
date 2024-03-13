@@ -7,6 +7,7 @@ import com.praveenpayasi.headlinehub.data.repository.CountryListRepository
 import com.praveenpayasi.headlinehub.data.repository.LanguageListRepository
 import com.praveenpayasi.headlinehub.data.repository.NewsRepository
 import com.praveenpayasi.headlinehub.data.repository.NewsSourceRepository
+import com.praveenpayasi.headlinehub.data.repository.SearchRepository
 import com.praveenpayasi.headlinehub.data.repository.TopHeadlinePaginationRepository
 import com.praveenpayasi.headlinehub.data.repository.TopHeadlineRepository
 import com.praveenpayasi.headlinehub.di.ActivityContext
@@ -19,6 +20,7 @@ import com.praveenpayasi.headlinehub.ui.news.NewsListAdapter
 import com.praveenpayasi.headlinehub.ui.news.NewsListViewModel
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationAdapter
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationViewModel
+import com.praveenpayasi.headlinehub.ui.search.SearchViewModel
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourceAdapter
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesViewModel
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineAdapter
@@ -107,6 +109,17 @@ class ActivityModule(private val activity: AppCompatActivity) {
         return ViewModelProvider(activity, ViewModelProviderFactory(LanguageListViewModel::class) {
             LanguageListViewModel(languageListRepository, dispatcherProvider)
         })[LanguageListViewModel::class.java]
+    }
+
+    @Provides
+    fun provideSearchViewModel(
+        searchRepository: SearchRepository,
+        dispatcherProvider: DispatcherProvider,
+        networkHelper: NetworkHelper,
+    ): SearchViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(SearchViewModel::class) {
+            SearchViewModel(searchRepository, dispatcherProvider, networkHelper)
+        })[SearchViewModel::class.java]
     }
 
     @Provides
