@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HeadlineHub"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
@@ -25,14 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.news.NewsListActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:exported="false" />
 
     </application>
 

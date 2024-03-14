@@ -16,6 +16,7 @@ import com.praveenpayasi.headlinehub.ui.language.LanguageListRoute
 import com.praveenpayasi.headlinehub.ui.news.NewsListRoute
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineRoute
 import com.praveenpayasi.headlinehub.ui.pagination.PaginationTopHeadlineRoute
+import com.praveenpayasi.headlinehub.ui.search.SearchScreenRoute
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesRoute
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineRoute
 import com.praveenpayasi.headlinehub.ui.utils.AppConstant
@@ -23,7 +24,6 @@ import com.praveenpayasi.headlinehub.ui.utils.AppConstant
 sealed class Route(val name: String) {
 
     object HomeScreen : Route("homescreen")
-
     object TopHeadline : Route("topheadline")
     object PaginationTopHeadline : Route("paginationtopheadline")
 
@@ -87,6 +87,11 @@ fun NewsNavHost() {
         composable(route = Route.LanguageList.name) {
             LanguageListRoute(onLanguageClick = {
                 navController.navigate(route = Route.NewsList.passData(languageId = it))
+            })
+        }
+        composable(route = Route.Search.name) {
+            SearchScreenRoute(onNewsClick = {
+                openCustomChromeTab(context, it)
             })
         }
 
