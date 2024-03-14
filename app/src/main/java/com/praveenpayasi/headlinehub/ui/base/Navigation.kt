@@ -10,7 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.praveenpayasi.headlinehub.ui.country.CountryListRoute
 import com.praveenpayasi.headlinehub.ui.home.HomeScreenRoute
+import com.praveenpayasi.headlinehub.ui.language.LanguageListRoute
 import com.praveenpayasi.headlinehub.ui.news.NewsListRoute
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineRoute
 import com.praveenpayasi.headlinehub.ui.pagination.PaginationTopHeadlineRoute
@@ -75,6 +77,16 @@ fun NewsNavHost() {
         composable(route = Route.NewsSources.name) {
             NewsSourcesRoute(onNewsClick = {
                 navController.navigate(route = Route.NewsList.passData(sourceId = it))
+            })
+        }
+        composable(route = Route.CountryList.name) {
+            CountryListRoute(onCountryClick = {
+                navController.navigate(route = Route.NewsList.passData(countryId = it))
+            })
+        }
+        composable(route = Route.LanguageList.name) {
+            LanguageListRoute(onLanguageClick = {
+                navController.navigate(route = Route.NewsList.passData(languageId = it))
             })
         }
 
