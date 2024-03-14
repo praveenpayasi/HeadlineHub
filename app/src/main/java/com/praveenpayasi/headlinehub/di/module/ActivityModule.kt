@@ -5,7 +5,6 @@ import com.praveenpayasi.headlinehub.ui.language.LanguageListAdapter
 import com.praveenpayasi.headlinehub.ui.news.NewsListAdapter
 import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationAdapter
 import com.praveenpayasi.headlinehub.ui.sources.NewsSourceAdapter
-import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +14,6 @@ import dagger.hilt.android.components.ActivityComponent
 @InstallIn(ActivityComponent::class)
 class ActivityModule {
 
-    @Provides
-    fun provideTopHeadlineAdapter() = TopHeadlineAdapter(ArrayList())
     @Provides
     fun providePaginationTopHeadlineAdapter() = TopHeadlinePaginationAdapter()
     @Provides
