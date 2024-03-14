@@ -5,13 +5,18 @@ import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.praveenpayasi.headlinehub.ui.home.HomeScreenRoute
+import com.praveenpayasi.headlinehub.ui.news.NewsListRoute
 import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineRoute
 import com.praveenpayasi.headlinehub.ui.pagination.PaginationTopHeadlineRoute
+import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesRoute
 import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineRoute
+import com.praveenpayasi.headlinehub.ui.utils.AppConstant
 
 sealed class Route(val name: String) {
 
@@ -25,6 +30,17 @@ sealed class Route(val name: String) {
     object LanguageList : Route("languagelist")
     object CountryList : Route("countrylist")
     object Search : Route("search")
+
+    object NewsList :
+        Route(name = "newslist?sourceId={sourceId}&countryId={countryId}&languageId={languageId}") {
+        fun passData(
+            sourceId: String = "",
+            countryId: String = "",
+            languageId: String = ""
+        ): String {
+            return "newslist?sourceId=$sourceId&countryId=$countryId&languageId=$languageId"
+        }
+    }
 
 }
 
@@ -55,6 +71,38 @@ fun NewsNavHost() {
             PaginationTopHeadlineRoute(onNewsClick = {
                 openCustomChromeTab(context, it)
             })
+        }
+        composable(route = Route.NewsSources.name) {
+            NewsSourcesRoute(onNewsClick = {
+                navController.navigate(route = Route.NewsList.passData(sourceId = it))
+            })
+        }
+
+        composable(route = Route.NewsList.name,
+            arguments = listOf(
+                navArgument(AppConstant.SOURCE_ID) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+                navArgument(AppConstant.COUNTRY_ID) {
+                    type = NavType.StringType
+                    defaultValue = ""
+
+                },
+                navArgument(AppConstant.LANGUAGE_ID) {
+                    type = NavType.StringType
+                    defaultValue = ""
+
+                }
+            )
+        ) { it ->
+            val sourceId = it.arguments?.getString(AppConstant.SOURCE_ID).toString()
+            val countryId = it.arguments?.getString(AppConstant.COUNTRY_ID).toString()
+            val languageId = it.arguments?.getString(AppConstant.LANGUAGE_ID).toString()
+
+            NewsListRoute(onNewsClick = {
+                openCustomChromeTab(context, it)
+            }, sourceId = sourceId, countryId = countryId, languageId = languageId)
         }
     }
 }
