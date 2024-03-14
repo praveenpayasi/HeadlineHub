@@ -1,52 +1,50 @@
 package com.praveenpayasi.headlinehub.ui
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.praveenpayasi.headlinehub.databinding.ActivityMainBinding
-import com.praveenpayasi.headlinehub.ui.country.CountryListActivity
-import com.praveenpayasi.headlinehub.ui.language.LanguageListActivity
-import com.praveenpayasi.headlinehub.ui.offline.OfflineTopHeadlineActivity
-import com.praveenpayasi.headlinehub.ui.pagination.TopHeadlinePaginationActivity
-import com.praveenpayasi.headlinehub.ui.search.SearchActivity
-import com.praveenpayasi.headlinehub.ui.sources.NewsSourcesActivity
-import com.praveenpayasi.headlinehub.ui.topheadline.TopHeadlineActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.praveenpayasi.headlinehub.ui.base.NewsNavHost
+import com.praveenpayasi.headlinehub.ui.theme.NewsAppTheme
+import com.praveenpayasi.headlinehub.ui.theme.gray40
+import com.praveenpayasi.headlinehub.ui.utils.AppConstant
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        binding.btnTopHeadlines.setOnClickListener{
-            startActivity(Intent(TopHeadlineActivity.getStartIntent(this@MainActivity)))
-        }
+        setContent {
+            NewsAppTheme {
+                Scaffold(topBar = {
+                    TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = Color.White
+                    ), title = { Text(text = AppConstant.APP_NAME) })
+                }) { padding ->
+                    Column(
+                        modifier = Modifier
+                            .padding(padding)
+                            .background(gray40),
+                    ) {
+                        NewsNavHost()
+                    }
+                }
 
-        binding.btnOfflineTopHeadlines.setOnClickListener {
-            startActivity(Intent(OfflineTopHeadlineActivity.getStartIntent(this@MainActivity)))
-        }
-
-        binding.btnPaginationTopHeadlines.setOnClickListener {
-            startActivity(Intent(TopHeadlinePaginationActivity.getStartIntent(this@MainActivity)))
-        }
-
-        binding.btnNewsSources.setOnClickListener {
-            startActivity(Intent(NewsSourcesActivity.getStartIntent(this@MainActivity)))
-        }
-
-        binding.btnCoutriess.setOnClickListener {
-            startActivity(Intent(CountryListActivity.getStartIntent(this@MainActivity)))
-        }
-
-        binding.btnLanguages.setOnClickListener {
-            startActivity(Intent(LanguageListActivity.getStartIntent(this@MainActivity)))
-        }
-
-        binding.btnSearch.setOnClickListener {
-            startActivity(Intent(SearchActivity.getStartIntent(this@MainActivity)))
+            }
         }
 
     }
