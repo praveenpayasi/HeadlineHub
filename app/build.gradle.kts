@@ -79,7 +79,7 @@ dependencies {
     kapt ("androidx.room:room-compiler:2.6.1")
 
     //Paging
-    implementation("androidx.paging:paging-runtime:3.1.1")
+    implementation ("androidx.paging:paging-compose:3.2.1")
 
     //Compose
     implementation ("androidx.activity:activity-compose:1.8.2")
