@@ -30,3 +30,11 @@ fun ApiTopHeadlines.toArticleLanguage(language: String): TopHeadlineEntity {
         source = apiSource.toSourceEntity()
     )
 }
+
+fun List<ApiTopHeadlines>.apiTopHeadlinesListToTopHeadlineEntityList(country: String): List<TopHeadlineEntity> {
+    val list = mutableListOf<TopHeadlineEntity>()
+    forEach { apiArticle ->
+        list.add(apiArticle.toTopHeadlineEntity(country))
+    }
+    return list
+}

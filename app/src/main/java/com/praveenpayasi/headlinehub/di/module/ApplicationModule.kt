@@ -2,6 +2,7 @@ package com.praveenpayasi.headlinehub.di.module
 
 import android.content.Context
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.praveenpayasi.headlinehub.data.api.ApiKeyInterceptor
 import com.praveenpayasi.headlinehub.data.api.NetworkService
 import com.praveenpayasi.headlinehub.data.local.AppDatabaseService
@@ -107,6 +108,14 @@ class ApplicationModule {
             NewsAppDatabase::class.java,
             databaseName
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationWorker(
+        @ApplicationContext context: Context
+    ): WorkManager{
+        return WorkManager.getInstance(context)
     }
 
 }
