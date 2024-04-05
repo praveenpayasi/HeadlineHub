@@ -2,33 +2,8 @@
 
 **Welcome to HeadlineHub, a news application built with MVVM architecture and Jetpack Compose.**
 
+![Blue Breaking News YouTube Channel Art](https://github.com/praveenpayasi/HeadlineHub/assets/13694253/11667c7c-c848-4b22-89ba-29ce2ba8b397)
 
-
-## Migrate XML Project to Jetpack Compose
-
-- **Update Android Gradle Plugin and Kotlin Plugin:** Using the latest versions of the Android Gradle Plugin and Kotlin Plugin.
-- **Add Compose Dependencies:** build.gradle (module-level)
-- **Set Up Compose Application:** Create a new @Composable function
-- **Replace XML Layouts with Compose Code:** For example, if you had an XML layout with a TextView, replace it with a Compose Text element.
-- **Adopt Compose Components:** Replace XML-based UI components with their Compose equivalents.
-- **Integrate Compose Navigation:** Migrate from XML-based navigation to Compose Navigation.
-- **Migrate UI Logic:** Update UI logic to use Compose's state management.
-- **Migrate Resources:** Migrate string resources, colors, drawable.
-- **Update Gradle Plugin Versions:** Update your Gradle dependencies accordingly.
-- **Testing:** Write tests for your Compose UI using the Compose testing library.
-- **Documentation and Learning:** - Refer to the official Jetpack Compose documentation and samples. Learn about Compose concepts like Composables, state management, and navigation.
-
-## Migrate Dagger2 Project to Dagger-Hilt
-
-- **Add Hilt Dependencies:** build.gradle (module-level)
-- **Apply Hilt Gradle Plugin:** build.gradle (apply plugin: 'dagger.hilt.android.plugin').
-- **Update Dagger Annotations:** Replace Dagger annotations with Hilt annotations where needed, For example, replace @Component with @HiltComponent.
-- **Add Hilt Android Application:** Replace Dagger's DaggerAppComponent with Hilt's Hilt_AppComponent.
-- **Annotate Android Application Class:** Annotate your Application class with @HiltAndroidApp.
-- **Replace Dagger Android Modules:** Replace Dagger Android modules with Hilt Android entry points.
-- **Update Injection in Activities/Fragments:** Replace Dagger with Hilt for activity or fragment injection.
-- **Update ViewModel Injection:** Replace Dagger ViewModelFactory and ViewModelKey with Hilt's HiltViewModel and @ViewModelInject.
-- **Update Dagger Android Testing Components:** Replace DaggerMyTestComponent with HiltTestApplicationComponent.
 
   ## Major Highlights
 
