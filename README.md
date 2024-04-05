@@ -2,7 +2,7 @@
 
 **Welcome to HeadlineHub, a news application built with MVVM architecture and Jetpack Compose.**
 
-![Blue Breaking News YouTube Channel Art](https://github.com/praveenpayasi/HeadlineHub/assets/13694253/11667c7c-c848-4b22-89ba-29ce2ba8b397)
+![Banner](https://github.com/praveenpayasi/HeadlineHub/assets/13694253/9ce37e4e-8e8f-4b23-802f-a214ca222dfd)
 
 
   ## Major Highlights
