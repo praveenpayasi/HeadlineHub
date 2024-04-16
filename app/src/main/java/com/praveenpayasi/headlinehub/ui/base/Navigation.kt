@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -47,9 +48,9 @@ sealed class Route(val name: String) {
 }
 
 @Composable
-fun NewsNavHost() {
+fun NewsNavHost(navController: NavHostController) {
 
-    val navController = rememberNavController()
+
     val context = LocalContext.current
 
     NavHost(

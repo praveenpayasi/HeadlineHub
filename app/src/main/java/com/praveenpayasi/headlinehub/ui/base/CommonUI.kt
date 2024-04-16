@@ -11,12 +11,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -170,5 +176,41 @@ fun SourceText(source: Source) {
         color = Color.Gray,
         maxLines = 1,
         modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 4.dp, bottom = 8.dp)
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun GlobalTopBar(
+    title: String,
+    shouldShowBackIcon: Boolean = true,
+    onBackClick: () -> Unit,
+) {
+    TopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+        ),
+        title = { Text(text = title) },
+        navigationIcon = {
+            if (shouldShowBackIcon)
+                Icon(
+                    modifier = Modifier.clickable { onBackClick() },
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "ArrowBack",
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+        }
+    )
+
+}
+
+@Preview(showBackground = true, apiLevel = 33)
+@Composable
+fun GlobalTopBarPreview() {
+    GlobalTopBar(
+        title = "Top Headlines",
+        shouldShowBackIcon = true,
+        onBackClick = {}
     )
 }
